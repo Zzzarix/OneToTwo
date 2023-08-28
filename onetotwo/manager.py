@@ -6,12 +6,11 @@ from typing import Generic, TypeVar
 
 import firebase_admin as firebase
 from firebase_admin import db
-from onetotwo.model import FireBaseModel
 
-T = TypeVar("T", FireBaseModel)
+T = TypeVar("T")
 
 
-# %% Models
+# %% Manager
 class FireBaseManager(Generic[T], ABC):
     """Base manager for FireBaseModels"""
 
