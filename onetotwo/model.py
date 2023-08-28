@@ -27,3 +27,11 @@ class MutableModel(FireBaseModel, ABC):
     model_config = {
         "frozen": False,
     }
+
+
+class ImmutableModel(FireBaseModel, ABC):
+    """Immutable model"""
+
+    model_config = {
+        "frozen": True,
+    }
