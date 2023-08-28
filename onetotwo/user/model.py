@@ -16,5 +16,8 @@ class User(MutableModel):
     """User model"""
 
     name: str
+    email: str
+    password: str
     locale: UserLocale
     created_at: datetime
+    is_active: bool
