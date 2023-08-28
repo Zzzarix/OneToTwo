@@ -6,7 +6,7 @@ from onetotwo.model import MutableModel
 
 
 # %% Enums
-class UserLocale(Enum, str):
+class UserLocale(str, Enum):
     Rus = "ru"
     Eng = "en"
 

@@ -11,10 +11,7 @@ class FireBaseModel(BaseModel, ABC):
 
     uid: str
 
-    model_config = {
-        "extra": "ignore",
-        "alias_generator": to_camel,
-    }
+    model_config = {"extra": "ignore"}
 
     def to_json(self) -> str:
         """Return json representation of model"""

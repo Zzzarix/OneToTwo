@@ -6,6 +6,7 @@ from typing import Generic, Type, TypeVar
 
 import firebase_admin as firebase
 from firebase_admin import db
+from onetotwo.utils import make_uuid
 
 T = TypeVar("T")
 
@@ -23,7 +24,7 @@ class FireBaseManager(Generic[T], ABC):
     def _create(self, **kwargs) -> T:
         """Create model"""
 
-        kwargs["uid"] = uuid.uuid4()
+        kwargs["uid"] = make_uuid()
         kwargs["created_at"] = datetime.utcnow()
 
         model = self._model(**kwargs)

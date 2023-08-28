@@ -1,16 +1,18 @@
 # %% Import Dependencies
-from typing import Optional
+from typing import Optional, Type
+from urllib.parse import urlparse
 
 from onetotwo.manager import FireBaseManager
 from onetotwo.oneway.model import OneWay, Redirect, TargetUrl, WayLifetime
+from onetotwo.utils import make_uuid
 
 
 # %% Managers
 class RedirectManager(FireBaseManager[Redirect]):
     """Redirect firebase manager"""
 
-    def __init__(self, app_name: str, model_name: str) -> None:
-        super().__init__(app_name, model_name)
+    def __init__(self, app_name: str, model: Type[Redirect]) -> None:
+        super().__init__(app_name, model)
 
     def create(self, ip: str, oneway_uid: str) -> Redirect:
         """Create Redirect model"""
@@ -29,15 +31,31 @@ class RedirectManager(FireBaseManager[Redirect]):
 class OneWayManager(FireBaseManager[OneWay]):
     """OneWay firebase manager"""
 
-    def __init__(self, app_name: str, model_name: str, redirect_manager: RedirectManager) -> None:
-        super().__init__(app_name, model_name)
+    def __init__(self, app_name: str, model: Type[OneWay], redirect_manager: RedirectManager) -> None:
+        super().__init__(app_name, model)
         self._redirect = redirect_manager
 
+    def _make_target_url(self, target: str) -> TargetUrl:
+        url = urlparse(target)
+
+        query = dict([q.split("=") for q in url.query.split("&")])
+
+        return TargetUrl(uid=make_uuid(), is_secured=True, domain=url.netloc, path=url.path, params=query)
+
     def create(
-        self, name: str, target: TargetUrl, is_temporary: bool, lifetime: WayLifetime, user_uid: Optional[str] = None
+        self,
+        name: str,
+        alias: str,
+        target: str,
+        is_temporary: bool,
+        lifetime: WayLifetime,
+        user_uid: Optional[str] = None,
     ) -> OneWay:
         """Create OneWay model"""
-        return self._create(name=name, target=target, is_temporary=is_temporary, lifetime=lifetime, user_uid=user_uid)
+        target_url = self._make_target_url(target)
+        return self._create(
+            name=name, alias=alias, target=target_url, is_temporary=is_temporary, lifetime=lifetime, user_uid=user_uid
+        )
 
     def get(self, uid: str) -> OneWay:
         """Get OneWay model"""

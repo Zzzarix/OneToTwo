@@ -7,7 +7,7 @@ from onetotwo.model import ImmutableModel, MutableModel
 
 
 # %% Enums
-class WayLifetime(Enum, int):
+class WayLifetime(int, Enum):
     Permanent = 0
     Day = 1
     ThreeDays = 3
