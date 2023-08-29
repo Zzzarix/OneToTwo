@@ -28,6 +28,16 @@ class CacheConfig(BaseConfig):
     _name = "cache"
 
 
+class FirebaseConfig(BaseConfig):
+    """Config for Firebase"""
+
+    _name = "firebase"
+
+    options: Dict[str, str]
+  
+    app_name: str
+
+
 # %% Manager
 class ConfigManager:
     """Config manager"""
@@ -35,6 +45,7 @@ class ConfigManager:
     app: AppConfig
     # log_config: LogConfig
     # cache_config: CacheConfig
+    firebase: FirebaseConfig
 
     @classmethod
     def load_config(cls, path: str) -> None:
