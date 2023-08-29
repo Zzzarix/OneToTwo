@@ -31,3 +31,16 @@ class ImmutableModel(FireBaseModel, ABC):
     model_config = {
         "frozen": True,
     }
+
+
+class BaseConfig(ImmutableModel, ABC):
+    """Base config model"""
+
+    _name: str
+
+    model_config = {
+        "ignored_types": (
+            str,
+            int,
+        )
+    }
