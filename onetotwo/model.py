@@ -8,8 +8,6 @@ from pydantic import BaseModel
 class FireBaseModel(BaseModel, ABC):
     """Model for storing in Firebase"""
 
-    uid: str
-
     model_config = {"extra": "ignore"}
 
     def to_json(self) -> str:

@@ -19,6 +19,7 @@ class WayLifetime(int, Enum):
 class TargetUrl(MutableModel):
     """Target url model"""
 
+    uid: str
     is_secured: bool
     domain: str
     path: str
@@ -31,6 +32,7 @@ class TargetUrl(MutableModel):
 class OneWay(MutableModel):
     """Shortened link model"""
 
+    uid: str
     name: str
     target: TargetUrl
     alias: str
@@ -43,6 +45,7 @@ class OneWay(MutableModel):
 class Redirect(ImmutableModel):
     """Redirect model"""
 
+    uid: str
     ip: str
     oneway_uid: str
     created_at: datetime

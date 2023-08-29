@@ -15,6 +15,7 @@ class UserLocale(str, Enum):
 class User(MutableModel):
     """User model"""
 
+    uid: str
     name: str
     email: str
     password: str
