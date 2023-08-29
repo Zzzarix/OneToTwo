@@ -14,7 +14,7 @@ class TestFactory:
         if cls._app_inited:
             return
         path = pathlib.Path(__file__)
-        credential = firebase.credentials.Certificate(os.path.join(path.parent, "secrets", "firebase_key.json"))
+        credential = firebase.credentials.Certificate(os.path.join(path.parent.parent, "secrets", "firebase_key.json"))
         firebase.initialize_app(
             credential=credential,
             options={"databaseURL": "https://onetotwo-2c516-default-rtdb.firebaseio.com/"},
