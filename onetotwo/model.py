@@ -2,7 +2,6 @@
 from abc import ABC
 
 from pydantic import BaseModel
-from pydantic.alias_generators import to_camel
 
 
 # %% Base models

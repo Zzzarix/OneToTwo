@@ -1,5 +1,4 @@
 # %% Import dependencies
-import uuid
 from abc import ABC
 from datetime import datetime
 from typing import Generic, Type, TypeVar
