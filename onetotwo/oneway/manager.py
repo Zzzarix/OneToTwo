@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from onetotwo.manager import FireBaseManager
 from onetotwo.oneway.model import OneWay, Redirect, TargetUrl, WayLifetime
-from onetotwo.utils import make_uuid
+from onetotwo.utils import make_alias, make_uuid
 
 
 # %% Managers
@@ -45,14 +45,17 @@ class OneWayManager(FireBaseManager[OneWay]):
     def create(
         self,
         name: str,
-        alias: str,
         target: str,
         is_temporary: bool,
         lifetime: WayLifetime,
         user_uid: Optional[str] = None,
+        only_numbers: bool = False
     ) -> OneWay:
         """Create OneWay model"""
         target_url = self._make_target_url(target)
+        alias = make_alias(length=5, only_numbers=only_numbers)
+        while self.get_by_alias(alias):
+            alias = make_alias(length=5, only_numbers=only_numbers)
         return self._create(
             name=name, alias=alias, target=target_url, is_temporary=is_temporary, lifetime=lifetime, user_uid=user_uid
         )
@@ -60,6 +63,12 @@ class OneWayManager(FireBaseManager[OneWay]):
     def get(self, uid: str) -> OneWay:
         """Get OneWay model"""
         return self._get(uid)
+    
+    def get_by_alias(self, alias: str) -> Optional[OneWay]:
+        """Get OneWay model by unique alias"""
+        res = self._ref.order_by_child("alias").equal_to({"alias": alias}).get()
+        return OneWay(**res) if res else None
+
 
     def delete(self, uid: str) -> None:
         """Delete OneWay model"""
@@ -67,10 +76,12 @@ class OneWayManager(FireBaseManager[OneWay]):
 
         self._redirect.delete_redirects(uid)
 
-    def redirect(self, alias: str, ip: str) -> str:
+    def redirect(self, alias: str, ip: str) -> Optional[str]:
         """Returns a link for redirection"""
-        res = self._ref.order_by_child("alias").equal_to({"alias": alias}).get()
-        way = OneWay(**res)
+        way = self.get_by_alias(alias)
+
+        if not way:
+            return None
 
         self._redirect.create(ip=ip, oneway_uid=way.uid)
 
