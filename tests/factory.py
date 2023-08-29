@@ -10,7 +10,7 @@ class TestFactory:
     _app_inited = False
 
     @classmethod
-    def init_firebase_app(cls):
+    def init_firebase_app(cls) -> None:
         if cls._app_inited:
             return
         path = pathlib.Path(__file__)
@@ -21,3 +21,8 @@ class TestFactory:
             name=cls.app_name,
         )
         cls._app_inited = True
+
+    @classmethod
+    def get_config_path(cls) -> str:
+        path = pathlib.Path(__file__)
+        return os.path.join(path.parent.parent, "configs", "config.yml")
