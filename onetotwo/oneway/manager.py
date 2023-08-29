@@ -1,5 +1,5 @@
 # %% Import Dependencies
-from typing import Optional, Type
+from typing import List, Optional, Type
 from urllib.parse import urlparse
 
 from onetotwo.manager import FireBaseManager
@@ -22,9 +22,17 @@ class RedirectManager(FireBaseManager[Redirect]):
         """Get Redirect model"""
         return self._get(uid)
 
+    def get_redirects(self, oneway_uid: str) -> List[Redirect]:
+        """Get Redirect models associated with OneWay"""
+        result = []
+        for redirect in self._ref.order_by_child("oneway_uid").equal_to(oneway_uid).get():
+            result.append(Redirect(**redirect))
+
+        return result
+
     def delete_redirects(self, oneway_uid: str) -> None:
         """Delete the Redirects model associated with OneWay"""
-        for redirect in self._ref.order_by_child("oneway_uid").get():
+        for redirect in self._ref.order_by_child("oneway_uid").equal_to(oneway_uid).get():
             self._delete(redirect["uid"])
 
 
@@ -49,7 +57,7 @@ class OneWayManager(FireBaseManager[OneWay]):
         is_temporary: bool,
         lifetime: WayLifetime,
         user_uid: Optional[str] = None,
-        only_numbers: bool = False
+        only_numbers: bool = False,
     ) -> OneWay:
         """Create OneWay model"""
         target_url = self._make_target_url(target)
@@ -63,12 +71,11 @@ class OneWayManager(FireBaseManager[OneWay]):
     def get(self, uid: str) -> OneWay:
         """Get OneWay model"""
         return self._get(uid)
-    
+
     def get_by_alias(self, alias: str) -> Optional[OneWay]:
         """Get OneWay model by unique alias"""
         res = self._ref.order_by_child("alias").equal_to({"alias": alias}).get()
         return OneWay(**res) if res else None
-
 
     def delete(self, uid: str) -> None:
         """Delete OneWay model"""
