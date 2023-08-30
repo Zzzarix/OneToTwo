@@ -6,6 +6,7 @@ import firebase_admin as firebase
 
 class TestFactory:
     app_name = "TEST_NAME"
+    service_name = "TEST_SERVICE"
 
     _app_inited = False
 

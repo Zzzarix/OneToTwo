@@ -2,6 +2,7 @@
 from typing import List, Optional, Type
 from urllib.parse import urlparse
 
+from onetotwo.applogger import AppLogger
 from onetotwo.manager import FireBaseManager
 from onetotwo.oneway.model import OneWay, Redirect, TargetUrl, WayLifetime
 from onetotwo.utils import make_alias, make_uuid
@@ -11,8 +12,8 @@ from onetotwo.utils import make_alias, make_uuid
 class RedirectManager(FireBaseManager[Redirect]):
     """Redirect firebase manager"""
 
-    def __init__(self, app_name: str, model: Type[Redirect]) -> None:
-        super().__init__(app_name, model)
+    def __init__(self, app_name: str, logger: AppLogger, model: Type[Redirect]) -> None:
+        super().__init__(app_name, logger, model)
 
     def create(self, ip: str, oneway_uid: str) -> Redirect:
         """Create Redirect model"""
@@ -39,8 +40,10 @@ class RedirectManager(FireBaseManager[Redirect]):
 class OneWayManager(FireBaseManager[OneWay]):
     """OneWay firebase manager"""
 
-    def __init__(self, app_name: str, model: Type[OneWay], redirect_manager: RedirectManager) -> None:
-        super().__init__(app_name, model)
+    def __init__(
+        self, app_name: str, logger: AppLogger, model: Type[OneWay], redirect_manager: RedirectManager
+    ) -> None:
+        super().__init__(app_name, logger, model)
         self._redirect = redirect_manager
 
     def _make_target_url(self, target: str) -> TargetUrl:

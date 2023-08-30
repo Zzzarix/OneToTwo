@@ -1,6 +1,7 @@
 # %% Import Dependencies
 from typing import Type
 
+from onetotwo.applogger import AppLogger
 from onetotwo.manager import FireBaseManager
 from onetotwo.user.model import User, UserLocale
 
@@ -9,8 +10,8 @@ from onetotwo.user.model import User, UserLocale
 class UserManager(FireBaseManager[User]):
     """User firebase manager"""
 
-    def __init__(self, app_name: str, model: Type[User]) -> None:
-        super().__init__(app_name, model)
+    def __init__(self, app_name: str, logger: AppLogger, model: Type[User]) -> None:
+        super().__init__(app_name, logger, model)
 
     def create(self, name: str, email: str, password: str, locale: UserLocale) -> User:
         """Create User model"""

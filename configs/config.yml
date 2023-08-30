@@ -2,3 +2,13 @@ app:
   debug: true
   host: "127.0.0.1"
   port: 8080
+
+applog:
+  log_format: "%(asctime)s %(service_name)s %(env_type)s %(levelname)s: %(message)s"
+  handlers:
+    stream:
+      handler: 'stdout'
+  level: 'DEBUG'
+
+tarantool:
+  uri: "asd"
