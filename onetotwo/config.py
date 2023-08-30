@@ -16,10 +16,13 @@ class AppConfig(BaseConfig):
     port: int
 
 
-class LogConfig(BaseConfig):
+class AppLoggerConfig(BaseConfig):
     """Config for app logger"""
 
-    _name = "log"
+    _name = "applog"
+    log_format: str
+    handlers: Dict[str, Any]
+    level: str
 
 
 class CacheConfig(BaseConfig):
@@ -28,13 +31,20 @@ class CacheConfig(BaseConfig):
     _name = "cache"
 
 
+class TarantoolConfig(BaseConfig):
+    """Config for app logger"""
+
+    _name = "tarantool"
+
+
 # %% Manager
 class ConfigManager:
     """Config manager"""
 
     app: AppConfig
-    # log_config: LogConfig
+    applog: AppLoggerConfig
     # cache_config: CacheConfig
+    tarantool: TarantoolConfig
 
     @classmethod
     def load_config(cls, path: str) -> None:
