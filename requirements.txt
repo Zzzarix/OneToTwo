@@ -4,7 +4,7 @@ uvicorn==0.22.0
 # Validation
 pydantic==2.3.0
 # Database driver
-oracledb==1.4.0
+tarantool==1.1.1
 # Tests
 pytest==7.4.0
 pytest-dependency==0.5.1
