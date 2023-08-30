@@ -74,8 +74,11 @@ class OneWayManager(FireBaseManager[OneWay]):
 
     def get_by_alias(self, alias: str) -> Optional[OneWay]:
         """Get OneWay model by unique alias"""
-        res = self._ref.order_by_child("alias").equal_to({"alias": alias}).get()
+        self._ref.order_by_child("alias").get()
+        self._ref.order_by_child("alias").equal_to("1mjQM").get()
+        res = self._ref.order_by_child("alias").equal_to(alias).get()
         return OneWay(**res) if res else None
+
 
     def delete(self, uid: str) -> None:
         """Delete OneWay model"""
