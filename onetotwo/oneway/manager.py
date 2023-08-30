@@ -1,8 +1,8 @@
 # %% Import Dependencies
 from typing import Optional, Type
 from urllib.parse import urlparse
-from onetotwo.applogger import AppLogger
 
+from onetotwo.applogger import AppLogger
 from onetotwo.manager import FireBaseManager
 from onetotwo.oneway.model import OneWay, Redirect, TargetUrl, WayLifetime
 from onetotwo.utils import make_uuid
@@ -32,7 +32,9 @@ class RedirectManager(FireBaseManager[Redirect]):
 class OneWayManager(FireBaseManager[OneWay]):
     """OneWay firebase manager"""
 
-    def __init__(self, app_name: str, logger: AppLogger, model: Type[OneWay], redirect_manager: RedirectManager) -> None:
+    def __init__(
+        self, app_name: str, logger: AppLogger, model: Type[OneWay], redirect_manager: RedirectManager
+    ) -> None:
         super().__init__(app_name, logger, model)
         self._redirect = redirect_manager
 

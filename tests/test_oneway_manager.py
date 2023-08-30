@@ -12,14 +12,17 @@ class TestOneWayManager:
     @pytest.fixture()
     def app_name(self) -> str:
         return TestFactory.app_name
-    
+
     @pytest.fixture()
     def logger(self) -> AppLogger:
-        return AppLogger("OneWay", AppLoggerConfig(
-            level="DEBUG",
-            log_format="%(asctime)s %(service_name)s %(env_type)s %(levelname)s: %(message)s",
-            handlers={"stream": {"handler": "stdout"}},
-        ))
+        return AppLogger(
+            "OneWay",
+            AppLoggerConfig(
+                level="DEBUG",
+                log_format="%(asctime)s %(service_name)s %(env_type)s %(levelname)s: %(message)s",
+                handlers={"stream": {"handler": "stdout"}},
+            ),
+        )
 
     @pytest.fixture()
     def redirect_manager(self, app_name: str, logger: AppLogger) -> RedirectManager:

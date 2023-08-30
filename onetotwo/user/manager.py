@@ -1,7 +1,7 @@
 # %% Import Dependencies
 from typing import Type
-from onetotwo.applogger import AppLogger
 
+from onetotwo.applogger import AppLogger
 from onetotwo.manager import FireBaseManager
 from onetotwo.user.model import User, UserLocale
 
