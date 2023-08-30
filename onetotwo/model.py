@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 
 # %% Base models
-class FireBaseModel(BaseModel, ABC):
-    """Model for storing in Firebase"""
+class TarantoolModel(BaseModel, ABC):
+    """Model for storing in Tarantool"""
 
     model_config = {"extra": "ignore"}
 
@@ -15,7 +15,7 @@ class FireBaseModel(BaseModel, ABC):
         return self.model_dump_json(by_alias=True)
 
 
-class MutableModel(FireBaseModel, ABC):
+class MutableModel(TarantoolModel, ABC):
     """Mutable model"""
 
     model_config = {
@@ -23,7 +23,7 @@ class MutableModel(FireBaseModel, ABC):
     }
 
 
-class ImmutableModel(FireBaseModel, ABC):
+class ImmutableModel(TarantoolModel, ABC):
     """Immutable model"""
 
     model_config = {

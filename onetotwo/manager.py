@@ -12,11 +12,11 @@ T = TypeVar("T")
 
 
 # %% Manager
-class FireBaseManager(Generic[T], ABC):
-    """Base manager for FireBaseModels"""
+class TarantoolManager(Generic[T], ABC):
+    """Base manager for TarantoolModels"""
 
     def __init__(self, app_name: str, logger: AppLogger, model: Type[T]) -> None:
-        """Init FireBaseManager"""
+        """Init TarantoolManager"""
         self._app: firebase.App = firebase.get_app(app_name)
         self._ref = db.reference(f"/{model.__name__}/", app=self._app)
         self._logger = logger
