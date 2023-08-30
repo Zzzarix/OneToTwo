@@ -9,6 +9,6 @@ class TestConfigManager:
         ConfigManager.load_config(path)
 
         assert ConfigManager.app
-        assert ConfigManager.app.debug == True
+        assert ConfigManager.app.debug is True
         assert ConfigManager.app.host == "127.0.0.1"
         assert ConfigManager.app.port == 8080
