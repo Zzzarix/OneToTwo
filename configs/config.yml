@@ -3,8 +3,12 @@ app:
   host: "127.0.0.1"
   port: 8080
 
-firebase:
-  options:
-    databaseURL: "https://onetotwo-2c516-default-rtdb.firebaseio.com/"
-  
-  app_name: "DEFAULT"
+applog:
+  log_format: "%(asctime)s %(service_name)s %(env_type)s %(levelname)s: %(message)s"
+  handlers:
+    stream:
+      handler: 'stdout'
+  level: 'DEBUG'
+
+tarantool:
+  uri: "asd"

@@ -16,10 +16,13 @@ class AppConfig(BaseConfig):
     port: int
 
 
-class LogConfig(BaseConfig):
+class AppLoggerConfig(BaseConfig):
     """Config for app logger"""
 
-    _name = "log"
+    _name = "applog"
+    log_format: str
+    handlers: Dict[str, Any]
+    level: str
 
 
 class CacheConfig(BaseConfig):
@@ -28,14 +31,10 @@ class CacheConfig(BaseConfig):
     _name = "cache"
 
 
-class FirebaseConfig(BaseConfig):
-    """Config for Firebase"""
+class TarantoolConfig(BaseConfig):
+    """Config for app logger"""
 
-    _name = "firebase"
-
-    options: Dict[str, str]
-  
-    app_name: str
+    _name = "tarantool"
 
 
 # %% Manager
@@ -43,9 +42,9 @@ class ConfigManager:
     """Config manager"""
 
     app: AppConfig
-    # log_config: LogConfig
+    applog: AppLoggerConfig
     # cache_config: CacheConfig
-    firebase: FirebaseConfig
+    tarantool: TarantoolConfig
 
     @classmethod
     def load_config(cls, path: str) -> None:
