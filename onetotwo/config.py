@@ -2,12 +2,12 @@
 import inspect
 from typing import Any, Dict
 
-from onetotwo.model import BaseConfig
+from onetotwo.model import ConfigModel
 from yaml import full_load as yaml_load
 
 
 # %% Models
-class AppConfig(BaseConfig):
+class AppConfig(ConfigModel):
     """Config for FastAPI app"""
 
     _name = "app"
@@ -16,7 +16,7 @@ class AppConfig(BaseConfig):
     port: int
 
 
-class AppLoggerConfig(BaseConfig):
+class AppLoggerConfig(ConfigModel):
     """Config for app logger"""
 
     _name = "applog"
@@ -25,16 +25,18 @@ class AppLoggerConfig(BaseConfig):
     level: str
 
 
-class CacheConfig(BaseConfig):
+class CacheConfig(ConfigModel):
     """Config for app cache"""
 
     _name = "cache"
 
 
-class TarantoolConfig(BaseConfig):
-    """Config for app logger"""
+class MongoConfig(ConfigModel):
+    """Config for connection to MongoDb"""
 
-    _name = "tarantool"
+    _name = "mongo"
+    uri: str
+    database: str
 
 
 # %% Manager
@@ -44,7 +46,7 @@ class ConfigManager:
     app: AppConfig
     applog: AppLoggerConfig
     # cache_config: CacheConfig
-    tarantool: TarantoolConfig
+    mongo: MongoConfig
 
     @classmethod
     def load_config(cls, path: str) -> None:

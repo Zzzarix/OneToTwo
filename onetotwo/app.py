@@ -5,8 +5,8 @@ import firebase_admin as firebase
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from onetotwo.api import router
-from uvicorn import run
 from onetotwo.config import ConfigManager
+from uvicorn import run
 
 app = FastAPI(debug=ConfigManager.app.debug)
 

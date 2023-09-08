@@ -26,7 +26,7 @@ class AppLogger:
         """Configure logger by self._config."""
         if "stream" in self._config.handlers:
             stream_name = self._config.handlers["stream"].get("handler")
-            stream = getattr(import_module("sys"), stream_name)  # type: ignore
+            stream = getattr(import_module("sys"), stream_name)
             handler = StreamHandler(stream=stream)
         else:
             raise NotImplementedError("Not supported log handler")
