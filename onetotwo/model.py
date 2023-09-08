@@ -10,9 +10,14 @@ class TarantoolModel(BaseModel, ABC):
 
     model_config = {"extra": "ignore"}
 
-    def to_json(self) -> str:
-        """Return json representation of model"""
-        return self.model_dump_json(by_alias=True)
+    @classmethod
+    def from_tuple(cls, data: tuple) -> "TarantoolModel":
+        """Return model from tuple representation"""
+        return cls.model_validate(data)
+
+    def to_tuple(self) -> tuple:
+        """Return tuple representation of model"""
+        return tuple(self.model_dump(mode="json", by_alias=True).values())
 
 
 class MutableModel(TarantoolModel, ABC):

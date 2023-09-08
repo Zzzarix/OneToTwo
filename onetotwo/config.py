@@ -35,6 +35,10 @@ class TarantoolConfig(BaseConfig):
     """Config for app logger"""
 
     _name = "tarantool"
+    host: str
+    port: int
+    user: str
+    password: str
 
 
 # %% Manager

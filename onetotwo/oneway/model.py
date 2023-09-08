@@ -19,7 +19,6 @@ class WayLifetime(int, Enum):
 class TargetUrl(MutableModel):
     """Target url model"""
 
-    uid: str
     is_secured: bool
     domain: str
     path: str

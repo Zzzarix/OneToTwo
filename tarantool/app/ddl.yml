@@ -1,0 +1,52 @@
+spaces:
+  users:
+    engine: vinyl
+    is_local: false
+    is_temporary: false
+    format:
+    - {name: uid, type: string, is_nullable: false}
+    - {name: name, type: string,  is_nullable: false}
+    - {name: email, type: string, is_nullable: false}
+    - {name: password, type: string, is_nullable: false}
+    - {name: locale, type: string, is_nullable: false}
+    - {name: created_at, type: datetime, is_nullable: false}
+    - {name: is_active, type: boolean, is_nullable: false}
+    indexes:
+    - name: uid
+      unique: true
+      parts: [{path: uid, type: string, is_nullable: false}]
+      type: HASH
+    - name: name
+      unique: true
+      parts: [{path: name, type: string, is_nullable: false}]
+      type: HASH
+    - name: email
+      unique: true
+      parts: [{path: email, type: string, is_nullable: false}]
+      type: HASH
+  oneways:
+    engine: vinyl
+    is_local: false
+    is_temporary: false
+    format:
+    - {name: uid, type: string, is_nullable: false}
+    - {name: name, type: string,  is_nullable: false}
+    - {name: target, type: string, is_nullable: false}
+    - {name: password, type: string, is_nullable: false}
+    - {name: locale, type: string, is_nullable: false}
+    - {name: created_at, type: datetime, is_nullable: false}
+    - {name: is_active, type: boolean, is_nullable: false}
+    indexes:
+    - name: uid
+      unique: true
+      parts: [{path: uid, type: string, is_nullable: false}]
+      type: HASH
+    - name: name
+      unique: true
+      parts: [{path: name, type: string, is_nullable: false}]
+      type: HASH
+    - name: email
+      unique: true
+      parts: [{path: email, type: string, is_nullable: false}]
+      type: HASH
+
