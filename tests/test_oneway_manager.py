@@ -3,19 +3,13 @@ from onetotwo.applogger import AppLogger
 from onetotwo.config import AppLoggerConfig
 from onetotwo.oneway.manager import OneWayManager, RedirectManager
 from onetotwo.oneway.model import OneWay, Redirect, WayLifetime
-from tests.factory import TestFactory
 
-
-TestFactory.init_firebase_app()
 
 def pytest_namespace():
-    return {'shared': None}
+    return {"shared": None}
+
 
 class TestOneWayManager:
-    @pytest.fixture()
-    def app_name(self) -> str:
-        return TestFactory.app_name
-
     @pytest.fixture()
     def logger(self) -> AppLogger:
         return AppLogger(
@@ -28,14 +22,14 @@ class TestOneWayManager:
         )
 
     @pytest.fixture()
-    def redirect_manager(self, app_name: str, logger: AppLogger) -> RedirectManager:
-        return RedirectManager(app_name=app_name, logger=logger, model=Redirect)
+    def redirect_manager(self, logger: AppLogger) -> RedirectManager:
+        return RedirectManager(logger=logger, model=Redirect)
 
-    def test_init(self, app_name: str, logger: AppLogger, redirect_manager: RedirectManager):
-        OneWayManager(app_name=app_name, logger=logger, model=OneWay, redirect_manager=redirect_manager)
+    def test_init(self, logger: AppLogger, redirect_manager: RedirectManager):
+        OneWayManager(logger=logger, model=OneWay, redirect_manager=redirect_manager)
 
-    def test_create(self, app_name: str, logger: AppLogger, redirect_manager: RedirectManager):
-        manager = OneWayManager(app_name=app_name, logger=logger, model=OneWay, redirect_manager=redirect_manager)
+    def test_create(self, logger: AppLogger, redirect_manager: RedirectManager):
+        manager = OneWayManager(logger=logger, model=OneWay, redirect_manager=redirect_manager)
 
         way = manager.create(
             "Way",
@@ -51,13 +45,12 @@ class TestOneWayManager:
         assert way.target.domain == "google.com"
         assert way.target.params == {"param1": "val1", "param2": "val2"}
 
-    def test_redirect(self, app_name: str, redirect_manager: RedirectManager):
-        manager = OneWayManager(app_name=app_name, model=OneWay, redirect_manager=redirect_manager)
-        print(pytest.shared.alias)
+    def test_redirect(self, logger: AppLogger, redirect_manager: RedirectManager):
+        manager = OneWayManager(logger=logger, model=OneWay, redirect_manager=redirect_manager)
         res = manager.redirect(pytest.shared.alias, "127.0.0.1")
 
         assert res
-        assert res == pytest.shared.target.format()
+        assert res == pytest.shared.target.to_str()
 
         redirects = redirect_manager.get_redirects(pytest.shared.uid)
 

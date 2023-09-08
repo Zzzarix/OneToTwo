@@ -1,54 +1,61 @@
 # %% Import dependencies
 from abc import ABC
 from datetime import datetime
-from typing import Generic, TypeVar
+from typing import Any, Generic, Iterable, Optional, Type, TypeVar
 
-import tarantool
-from onetotwo.config import ConfigManager
+import pymongo
 from onetotwo.applogger import AppLogger
-from onetotwo.model import TarantoolModel
+from onetotwo.config import ConfigManager
+from onetotwo.model import MongoModel
+from onetotwo.utils import make_uuid
 
-T = TypeVar("T", bound=TarantoolModel)
+T = TypeVar("T", bound=MongoModel)
 
 
 # %% Manager
-class TarantoolManager(Generic[T], ABC):
-    """Base manager for TarantoolModels"""
+class MongoManager(Generic[T], ABC):
+    """Base manager for MongoModels"""
 
-    def __init__(self, space_name: str, logger: AppLogger) -> None:
-        """Init TarantoolManager"""
-        self._conn: tarantool.Connection = self.__init()
-        self._space = self._conn.space(space_name)
+    def __init__(self, logger: AppLogger, model: Type[T]) -> None:
+        """Init MongoManager"""
+
+        self._model = model
+
+        self._client = pymongo.MongoClient(host=ConfigManager.mongo.uri)
+        self._db = self._client.get_database(name=ConfigManager.mongo.database)
+        self._collection = self._db.get_collection(self._model._collection_name)
         self._logger = logger
 
-    def __init(self) -> tarantool.Connection:
-        """Init Tarantool connection"""
-
-        connection: tarantool.Connection = tarantool.connect(
-            host=ConfigManager.tarantool.host,
-            port=ConfigManager.tarantool.port,
-            user=ConfigManager.tarantool.user,
-            password=ConfigManager.tarantool.password
-        )
-
-        return connection
-
-
-    def __create_model(self, model: T) -> None:
+    def _create(self, **kwargs) -> T:
         """Create model"""
 
-        self._space.insert(model.to_tuple())
+        kwargs["_id"] = make_uuid()
+        kwargs["created_at"] = datetime.utcnow()
 
-    def __find_models(self, uid: str) -> IterableT:
+        model = self._model(**kwargs)
+
+        self._collection.insert_one(model.to_dict())
+
+        return model
+
+    def _get_many(self, filt: dict[str, Any], limit: int = 0) -> Iterable[T]:
         """Find models"""
-        self._space.select()
 
-        return self._model(**res)
+        res: list[T] = []
+        for doc in self._collection.find(filt, limit=limit):
+            res.append(self._model(**doc))
+        return res
 
-    def __update_model(self, uid: str, **kwargs) -> None:
-        """Update model"""
-        self._ref.child(uid).update(kwargs)
+    def _get_one(self, filt: dict[str, Any]) -> Optional[T]:
+        """Find model"""
+        res = self._collection.find_one(filt)
 
-    def __delete_model(self, uid: str) -> None:
-        """Delete model"""
-        self._ref.child(uid).delete()
+        return self._model(**res) if res else None
+
+    def _update(self, filt: dict[str, Any], update: dict[str, Any]) -> None:
+        """Update models"""
+        self._collection.update_many(filt, update)
+
+    def _delete(self, filt: dict[str, Any]) -> None:
+        """Delete models"""
+        self._collection.delete_many(filt)

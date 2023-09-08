@@ -1,9 +1,8 @@
 # %% Import dependencies
-from datetime import datetime
 from enum import Enum
 from typing import Dict, Optional
 
-from onetotwo.model import ImmutableModel, MutableModel
+from onetotwo.model import MongoModel, ObjectModel
 
 
 # %% Enums
@@ -16,7 +15,7 @@ class WayLifetime(int, Enum):
 
 
 # %% Models
-class TargetUrl(MutableModel):
+class TargetUrl(ObjectModel):
     """Target url model"""
 
     is_secured: bool
@@ -24,27 +23,27 @@ class TargetUrl(MutableModel):
     path: str
     params: Dict[str, str]
 
-    def format(self) -> str:
+    def to_str(self) -> str:
         return self.domain + self.path + "?" + "&".join([k + "=" + v for k, v in self.params.items()])
 
 
-class OneWay(MutableModel):
+class OneWay(MongoModel):
     """Shortened link model"""
 
-    uid: str
+    _collection_name = "oneways"
+
     name: str
     target: TargetUrl
     alias: str
     is_temporary: bool
     lifetime: WayLifetime
     user_uid: Optional[str]
-    created_at: datetime
 
 
-class Redirect(ImmutableModel):
+class Redirect(MongoModel):
     """Redirect model"""
 
-    uid: str
+    _collection_name = "redirects"
+
     ip: str
     oneway_uid: str
-    created_at: datetime
