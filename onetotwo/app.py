@@ -1,7 +1,3 @@
-import os
-import pathlib
-
-import firebase_admin as firebase
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from onetotwo.api import router
@@ -19,13 +15,7 @@ app.include_router(router)
 
 @app.on_event("startup")
 def startup():
-    path = pathlib.Path(__file__)
-    credential = firebase.credentials.Certificate(os.path.join(path.parent.parent, "secrets", "firebase_key.json"))
-    firebase.initialize_app(
-        credential=credential,
-        options=ConfigManager.firebase.options,
-        name=ConfigManager.firebase.app_name,
-    )
+    pass
 
 
 if __name__ == "__main__":
