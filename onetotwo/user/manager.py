@@ -8,7 +8,7 @@ from onetotwo.user.model import User, UserLocale
 
 # %% Manager
 class UserManager(MongoManager[User]):
-    """User mongo manager"""
+    """User mongodb manager"""
 
     def __init__(self, logger: AppLogger, model: Type[User]) -> None:
         super().__init__(logger, model)

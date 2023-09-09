@@ -10,7 +10,7 @@ from onetotwo.utils import make_alias
 
 # %% Managers
 class RedirectManager(MongoManager[Redirect]):
-    """Redirect firebase manager"""
+    """Redirect mongodb manager"""
 
     def __init__(self, logger: AppLogger, model: Type[Redirect]) -> None:
         super().__init__(logger, model)
@@ -33,7 +33,7 @@ class RedirectManager(MongoManager[Redirect]):
 
 
 class OneWayManager(MongoManager[OneWay]):
-    """OneWay firebase manager"""
+    """OneWay mongodb manager"""
 
     def __init__(self, logger: AppLogger, model: Type[OneWay], redirect_manager: RedirectManager) -> None:
         super().__init__(logger, model)
