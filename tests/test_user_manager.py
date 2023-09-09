@@ -3,7 +3,6 @@ from onetotwo.applogger import AppLogger
 from onetotwo.config import AppLoggerConfig
 from onetotwo.user.manager import UserManager
 from onetotwo.user.model import User, UserLocale
-from tests.factory import TestFactory
 
 
 class TestUserManager:
@@ -19,12 +18,12 @@ class TestUserManager:
         )
 
     def test_init(self, logger: AppLogger):
-        UserManager(logger=logger, model=User)
+        UserManager.init(logger=logger, model=User)
 
     def test_create(self, logger: AppLogger):
-        manager = UserManager(logger=logger, model=User)
+        UserManager.init(logger=logger, model=User)
 
-        user = manager.create("User", "user@user.com", "userpwd", UserLocale.Rus)
+        user = UserManager.create("User", "user@user.com", "userpwd", UserLocale.Rus)
 
         assert user.name == "User"
         assert user.email == "user@user.com"
