@@ -1,6 +1,6 @@
+from onetotwo.user.model import UserLocale
 from pydantic import BaseModel
 
-from onetotwo.user.model import UserLocale
 
 class CreateUser(BaseModel):
     """CreateUser validate model"""
@@ -10,8 +10,10 @@ class CreateUser(BaseModel):
     password: str
     locale: UserLocale
 
+
 class UpdateUser(BaseModel):
     """UpdateUser validate model"""
+
 
 class DeleteUser(BaseModel):
     """DeleteUser validate model"""
