@@ -1,8 +1,7 @@
 # %% Import dependencies
-from datetime import datetime
 from enum import Enum
 
-from onetotwo.model import MutableModel
+from onetotwo.model import MongoModel
 
 
 # %% Enums
@@ -12,13 +11,13 @@ class UserLocale(str, Enum):
 
 
 # %% Models
-class User(MutableModel):
+class User(MongoModel):
     """User model"""
 
-    uid: str
+    _collection_name = "users"
+
     name: str
     email: str
     password: str
     locale: UserLocale
-    created_at: datetime
     is_active: bool
