@@ -53,7 +53,6 @@ class TestOneWayManager:
         assert res
         assert res == pytest.shared.target.to_str()
 
-
         redirects = RedirectManager.get_redirects(pytest.shared.uid)
 
         assert len(redirects) == 1

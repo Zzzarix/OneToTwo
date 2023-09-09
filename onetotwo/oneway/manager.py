@@ -53,7 +53,7 @@ class OneWayManager(MongoManager[OneWay]):
         query = dict([q.split("=") for q in url.query.split("&")])
 
         return TargetUrl(is_secured=True, domain=url.netloc, path=url.path, params=query)
-    
+
     @classmethod
     def create(
         cls,
