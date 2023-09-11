@@ -45,5 +45,5 @@ class Redirect(MongoModel):
 
     _collection_name = "redirects"
 
-    ip: str
+    ip: Optional[str]
     oneway_uid: str
