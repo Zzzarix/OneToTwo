@@ -1,5 +1,5 @@
 # %% Import Dependencies
-from typing import Optional, Type
+from typing import Any, Optional, Type
 
 from onetotwo.applogger import AppLogger
 from onetotwo.manager import MongoManager
@@ -20,9 +20,26 @@ class UserManager(MongoManager[User]):
         return cls._create(name=name, email=email, password=password, locale=locale, is_active=True)
 
     @classmethod
-    def get(cls, uid: str) -> Optional[User]:
+    def get(cls, *, uid: str = None, email: str = None) -> Optional[User]:
         """Get user model"""
-        return cls._get_one({"_id": uid})
+        filt = {}
+
+        if uid:
+            filt = {"_id": uid}
+
+        elif email:
+            filt = {"email": email}
+
+        else:
+            ...
+            raise NotImplemented()
+
+        return cls._get_one(filt)
+
+    @classmethod
+    def update(cls, uid: str, update: dict[str, Any]) -> None:
+        """Get user model"""
+        cls._update({"_id": uid}, update)
 
     @classmethod
     def delete(cls, uid: str) -> None:

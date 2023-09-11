@@ -67,21 +67,28 @@ class OneWayManager(MongoManager[OneWay]):
         """Create OneWay model"""
         target_url = cls._make_target_url(target)
         alias = make_alias(length=5, only_numbers=only_numbers)
-        while cls.get_by_alias(alias):
+        while cls.get(alias=alias):
             alias = make_alias(length=5, only_numbers=only_numbers)
         return cls._create(
             name=name, alias=alias, target=target_url, is_temporary=is_temporary, lifetime=lifetime, user_uid=user_uid
         )
 
     @classmethod
-    def get(cls, uid: str) -> Optional[OneWay]:
+    def get(cls, *, uid: str = None, alias: str = None) -> Optional[OneWay]:
         """Get OneWay model"""
-        return cls._get_one({"_id": uid})
+        filt = {}
 
-    @classmethod
-    def get_by_alias(cls, alias: str) -> Optional[OneWay]:
-        """Get OneWay model by unique alias"""
-        return cls._get_one({"alias": alias})
+        if uid:
+            filt = {"_id": uid}
+
+        elif alias:
+            filt = {"alias": alias}
+
+        else:
+            ...
+            raise NotImplemented()
+
+        return cls._get_one(filt)
 
     @classmethod
     def delete(cls, uid: str) -> None:
@@ -93,7 +100,7 @@ class OneWayManager(MongoManager[OneWay]):
     @classmethod
     def redirect(cls, alias: str, ip: str) -> Optional[str]:
         """Returns a link for redirection"""
-        way = cls.get_by_alias(alias)
+        way = cls.get(alias=alias)
 
         if not way:
             return None
