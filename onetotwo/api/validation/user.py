@@ -1,3 +1,5 @@
+from typing import Any
+
 from onetotwo.user.model import UserLocale
 from pydantic import BaseModel
 
@@ -14,6 +16,11 @@ class CreateUser(BaseModel):
 class UpdateUser(BaseModel):
     """UpdateUser validate model"""
 
+    uid: str
+    update: dict[str, Any]
+
 
 class DeleteUser(BaseModel):
     """DeleteUser validate model"""
+
+    uid: str
