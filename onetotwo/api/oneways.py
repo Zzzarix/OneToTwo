@@ -51,7 +51,7 @@ def delete_oneway(schema: DeleteOneWay):
 
 
 @router.get("/{alias}", response_description="Get redirect link by alias")
-def get_oneway(alias: str, request: Request):
+def redirect(alias: str, request: Request):
     """Get redirect link"""
 
     link = OneWayManager.redirect(alias, ip=request.client.host)

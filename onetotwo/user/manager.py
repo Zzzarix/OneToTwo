@@ -32,7 +32,7 @@ class UserManager(MongoManager[User]):
 
         else:
             ...
-            raise NotImplemented()
+            raise NotImplementedError("NotImplementedError")
 
         return cls._get_one(filt)
 

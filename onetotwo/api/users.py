@@ -7,7 +7,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.get("/get/uid/{uid}", response_model=User, response_description="Get user by it's uid")
-def get_user(uid: str):
+def get_user_by_uid(uid: str):
     """Get user"""
 
     user = UserManager.get(uid=uid)
@@ -16,7 +16,7 @@ def get_user(uid: str):
 
 
 @router.get("/get/email/{email}", response_model=User, response_description="Get user by it's email")
-def get_user(email: str):
+def get_user_by_email(email: str):
     """Get user"""
 
     user = UserManager.get(email=email)
