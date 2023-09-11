@@ -1,16 +1,16 @@
 import os
 import pathlib
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from onetotwo.api import router
 from onetotwo.applogger import AppLogger
 from onetotwo.config import ConfigManager
+from onetotwo.oneway.manager import OneWayManager, RedirectManager
 from onetotwo.oneway.model import OneWay, Redirect
 from onetotwo.user.manager import UserManager
-from onetotwo.oneway.manager import RedirectManager, OneWayManager
-from uvicorn import run
-
 from onetotwo.user.model import User
+from uvicorn import run
 
 fpath = pathlib.Path(__file__)
 path = os.path.join(fpath.parent.parent, "configs", "test_config.yml")

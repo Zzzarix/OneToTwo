@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from .users import router as users_router
 from .oneways import router as oneways_router
+from .users import router as users_router
 
 router = APIRouter(prefix="/api/v1", tags=["api"])
 
