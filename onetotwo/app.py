@@ -16,7 +16,13 @@ fpath = pathlib.Path(__file__)
 path = os.path.join(fpath.parent.parent, "configs", "test_config.yml")
 ConfigManager.load_config(path)
 
-app = FastAPI(debug=ConfigManager.app.debug)
+app = FastAPI(
+    debug=ConfigManager.app.debug,
+    title="OneToTwo",
+    version=ConfigManager.app.version,
+    openapi_url=f"/api/{ConfigManager.app.api_version}/openapi.json",
+    docs_url=f"/api/{ConfigManager.app.api_version}/docs",
+)
 
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
