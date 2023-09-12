@@ -11,6 +11,8 @@ class AppConfig(ConfigModel):
     """Config for FastAPI app"""
 
     _name = "app"
+    version: str
+    api_version: str
     debug: bool
     host: str
     port: int

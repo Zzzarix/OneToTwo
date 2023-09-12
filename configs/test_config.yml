@@ -1,4 +1,6 @@
 app:
+  version: "0.1.0"
+  api_version: "v1"
   debug: true
   host: "127.0.0.1"
   port: 8080
