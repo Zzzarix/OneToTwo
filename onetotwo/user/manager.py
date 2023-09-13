@@ -2,6 +2,7 @@
 from typing import Any, Optional, Type
 
 from onetotwo.applogger import AppLogger
+from onetotwo.exceptions import MissingRequiredArgument
 from onetotwo.manager import MongoManager
 from onetotwo.user.model import User, UserLocale
 
@@ -31,8 +32,7 @@ class UserManager(MongoManager[User]):
             filt = {"email": email}
 
         else:
-            ...
-            raise NotImplementedError("NotImplementedError")
+            raise MissingRequiredArgument()
 
         return cls._get_one(filt)
 

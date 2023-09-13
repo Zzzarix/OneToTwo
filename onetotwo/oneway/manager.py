@@ -3,6 +3,7 @@ from typing import List, Optional, Type
 from urllib.parse import urlparse
 
 from onetotwo.applogger import AppLogger
+from onetotwo.exceptions import MissingRequiredArgument
 from onetotwo.manager import MongoManager
 from onetotwo.oneway.model import OneWay, Redirect, TargetUrl, WayLifetime
 from onetotwo.utils import make_alias
@@ -67,8 +68,15 @@ class OneWayManager(MongoManager[OneWay]):
         """Create OneWay model"""
         target_url = cls._make_target_url(target)
         alias = make_alias(length=5, only_numbers=only_numbers)
+
+        i = 1
+
         while cls.get(alias=alias):
             alias = make_alias(length=5, only_numbers=only_numbers)
+            i += 1
+
+        cls._logger.debug(f"Unique alias generated after {i} tries")
+
         return cls._create(
             name=name, alias=alias, target=target_url, is_temporary=is_temporary, lifetime=lifetime, user_uid=user_uid
         )
@@ -85,8 +93,7 @@ class OneWayManager(MongoManager[OneWay]):
             filt = {"alias": alias}
 
         else:
-            ...
-            raise NotImplementedError("NotImplementedError")
+            raise MissingRequiredArgument()
 
         return cls._get_one(filt)
 
@@ -106,5 +113,7 @@ class OneWayManager(MongoManager[OneWay]):
             return None
 
         cls._redirect.create(ip=ip, oneway_uid=way.uid)
+
+        cls._logger.info(f'Redirect to "{way.target.to_str()}" from {ip}')
 
         return way.target.to_str()

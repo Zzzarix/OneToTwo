@@ -10,7 +10,7 @@ applog:
   handlers:
     stream:
       handler: 'stdout'
-  level: 'DEBUG'
+  level: 'INFO'
 
 mongo:
   uri: "mongodb+srv://root:zfwaK8RxbJ4gZvP@twokeepcom.ioxf2fy.mongodb.net/"

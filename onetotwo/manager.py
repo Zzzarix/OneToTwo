@@ -35,6 +35,8 @@ class MongoManager(Generic[T], ABC):
         cls._collection = cls._db.get_collection(cls._model._collection_name)
         cls._logger = logger
 
+        cls._logger.info(f"{model.__name__} manager successfull started")
+
     @classmethod
     def _create(cls, **kwargs) -> T:
         """Create model"""
@@ -45,6 +47,8 @@ class MongoManager(Generic[T], ABC):
         model = cls._model(**kwargs)
 
         cls._collection.insert_one(model.to_dict())
+
+        cls._logger.info(f'Created {cls._model.__name__} model with uid "{model.uid}"')
 
         return model
 
@@ -73,3 +77,5 @@ class MongoManager(Generic[T], ABC):
     def _delete(cls, filt: dict[str, Any]) -> None:
         """Delete models"""
         cls._collection.delete_many(filt)
+
+        cls._logger.info(f'Deleted {cls._model.__name__} model(s) with filters "{str(filt)}"')
