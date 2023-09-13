@@ -1,2 +1,2 @@
-# OneToTwo
-## Service for link transformation
+# Bitter
+## OneToTwo backend service
