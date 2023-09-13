@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Response
-from onetotwo.api.validation.user import CreateUser, DeleteUser, UpdateUser
-from onetotwo.user.manager import UserManager
-from onetotwo.user.model import User
+from bitter.api.validation.user import CreateUser, DeleteUser, UpdateUser
+from bitter.user.manager import UserManager
+from bitter.user.model import User
 
 router = APIRouter(prefix="/users", tags=["users"])
 

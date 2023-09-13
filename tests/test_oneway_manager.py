@@ -1,8 +1,8 @@
 import pytest
-from onetotwo.applogger import AppLogger
-from onetotwo.config import AppLoggerConfig
-from onetotwo.oneway.manager import OneWayManager, RedirectManager
-from onetotwo.oneway.model import OneWay, Redirect, WayLifetime
+from bitter.applogger import AppLogger
+from bitter.config import AppLoggerConfig
+from bitter.oneway.manager import OneWayManager, RedirectManager
+from bitter.oneway.model import OneWay, Redirect, WayLifetime
 
 
 def pytest_namespace():

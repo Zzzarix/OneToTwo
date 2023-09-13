@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Request, Response
 from fastapi.responses import RedirectResponse
-from onetotwo.api.validation.oneway import CreateOneWay, DeleteOneWay, UpdateOneWay
-from onetotwo.oneway.manager import OneWayManager
-from onetotwo.oneway.model import OneWay
+from bitter.api.validation.oneway import CreateOneWay, DeleteOneWay, UpdateOneWay
+from bitter.oneway.manager import OneWayManager
+from bitter.oneway.model import OneWay
 
 router = APIRouter(prefix="/oneways", tags=["oneways"])
 

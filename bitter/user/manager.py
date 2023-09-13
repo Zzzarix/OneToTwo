@@ -1,10 +1,10 @@
 # %% Import Dependencies
 from typing import Any, Optional, Type
 
-from onetotwo.applogger import AppLogger
-from onetotwo.exceptions import MissingRequiredArgument
-from onetotwo.manager import MongoManager
-from onetotwo.user.model import User, UserLocale
+from bitter.applogger import AppLogger
+from bitter.exceptions import MissingRequiredArgument
+from bitter.manager import MongoManager
+from bitter.user.model import User, UserLocale
 
 
 # %% Manager

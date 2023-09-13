@@ -3,10 +3,10 @@ from abc import ABC
 from datetime import datetime
 from typing import Any, Generic, Iterable, Optional, Type, TypeVar
 
-from onetotwo.applogger import AppLogger
-from onetotwo.config import ConfigManager
-from onetotwo.model import MongoModel
-from onetotwo.utils import make_uuid
+from bitter.applogger import AppLogger
+from bitter.config import ConfigManager
+from bitter.model import MongoModel
+from bitter.utils import make_uuid
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database

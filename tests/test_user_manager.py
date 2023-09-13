@@ -1,8 +1,8 @@
 import pytest
-from onetotwo.applogger import AppLogger
-from onetotwo.config import AppLoggerConfig
-from onetotwo.user.manager import UserManager
-from onetotwo.user.model import User, UserLocale
+from bitter.applogger import AppLogger
+from bitter.config import AppLoggerConfig
+from bitter.user.manager import UserManager
+from bitter.user.model import User, UserLocale
 
 
 class TestUserManager:

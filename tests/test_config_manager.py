@@ -1,4 +1,4 @@
-from onetotwo.config import ConfigManager
+from bitter.config import ConfigManager
 from tests.factory import TestFactory
 
 

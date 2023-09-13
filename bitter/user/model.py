@@ -1,7 +1,7 @@
 # %% Import dependencies
 from enum import Enum
 
-from onetotwo.model import MongoModel
+from bitter.model import MongoModel
 
 
 # %% Enums

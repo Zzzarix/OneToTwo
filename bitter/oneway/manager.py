@@ -2,11 +2,11 @@
 from typing import List, Optional, Type
 from urllib.parse import urlparse
 
-from onetotwo.applogger import AppLogger
-from onetotwo.exceptions import MissingRequiredArgument
-from onetotwo.manager import MongoManager
-from onetotwo.oneway.model import OneWay, Redirect, TargetUrl, WayLifetime
-from onetotwo.utils import make_alias
+from bitter.applogger import AppLogger
+from bitter.exceptions import MissingRequiredArgument
+from bitter.manager import MongoManager
+from bitter.oneway.model import OneWay, Redirect, TargetUrl, WayLifetime
+from bitter.utils import make_alias
 
 
 # %% Managers

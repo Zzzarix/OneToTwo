@@ -1,6 +1,6 @@
 import pytest
-from onetotwo.applogger import AppLogger
-from onetotwo.config import AppLoggerConfig
+from bitter.applogger import AppLogger
+from bitter.config import AppLoggerConfig
 from tests.factory import TestFactory
 
 

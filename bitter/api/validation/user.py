@@ -1,6 +1,6 @@
 from typing import Any
 
-from onetotwo.user.model import UserLocale
+from bitter.user.model import UserLocale
 from pydantic import BaseModel
 
 

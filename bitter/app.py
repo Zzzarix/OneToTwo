@@ -3,13 +3,13 @@ import pathlib
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from onetotwo.api import router
-from onetotwo.applogger import AppLogger
-from onetotwo.config import ConfigManager
-from onetotwo.oneway.manager import OneWayManager, RedirectManager
-from onetotwo.oneway.model import OneWay, Redirect
-from onetotwo.user.manager import UserManager
-from onetotwo.user.model import User
+from bitter.api import router
+from bitter.applogger import AppLogger
+from bitter.config import ConfigManager
+from bitter.oneway.manager import OneWayManager, RedirectManager
+from bitter.oneway.model import OneWay, Redirect
+from bitter.user.manager import UserManager
+from bitter.user.model import User
 from uvicorn import run
 
 fpath = pathlib.Path(__file__)
@@ -18,7 +18,7 @@ ConfigManager.load_config(path)
 
 app = FastAPI(
     debug=ConfigManager.app.debug,
-    title="OneToTwo",
+    title="Bitter",
     version=ConfigManager.app.version,
     openapi_url=f"/api/{ConfigManager.app.api_version}/openapi.json",
     docs_url=f"/api/{ConfigManager.app.api_version}/docs",
