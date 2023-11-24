@@ -22,7 +22,7 @@ services:
     container_name: "nginx-server"
     build:
       context: ./nginx
-      dockerfile: ./nginx/Dockerfile
+      dockerfile: Dockerfile
 
     ports:
       - "23000:23000"
