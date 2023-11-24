@@ -13,7 +13,7 @@ from bitter.user.model import User
 from uvicorn import run
 
 fpath = pathlib.Path(__file__)
-path = os.path.join(fpath.parent.parent, "configs", "test_config.yml")
+path = os.path.join(fpath.parent.parent, "configs", "config.yml")
 ConfigManager.load_config(path)
 
 app = FastAPI(
