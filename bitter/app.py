@@ -1,8 +1,6 @@
 import os
 import pathlib
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from bitter.api import router
 from bitter.applogger import AppLogger
 from bitter.config import ConfigManager
@@ -10,6 +8,8 @@ from bitter.oneway.manager import OneWayManager, RedirectManager
 from bitter.oneway.model import OneWay, Redirect
 from bitter.user.manager import UserManager
 from bitter.user.model import User
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from uvicorn import run
 
 fpath = pathlib.Path(__file__)

@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Response
 from bitter.api.validation.user import CreateUser, DeleteUser, UpdateUser
 from bitter.user.manager import UserManager
 from bitter.user.model import User
+from fastapi import APIRouter, Response
 
 router = APIRouter(prefix="/users", tags=["users"])
 
