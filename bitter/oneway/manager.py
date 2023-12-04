@@ -1,5 +1,5 @@
 # %% Import Dependencies
-from typing import List, Optional, Type
+from typing import Any, List, Optional, Type
 from urllib.parse import urlparse
 
 from bitter.applogger import AppLogger
@@ -95,6 +95,12 @@ class OneWayManager(MongoManager[OneWay]):
             raise MissingRequiredArgument()
 
         return cls._get_one(filt)
+
+    @classmethod
+    def update(cls, uid: str, update: dict[str, Any]) -> None:
+        """Update OneWay model"""
+        _update = {"$set": {k: v} for k, v in update.items()}
+        cls._update({"_id": uid}, _update)
 
     @classmethod
     def delete(cls, uid: str) -> None:
