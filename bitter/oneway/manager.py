@@ -51,7 +51,7 @@ class OneWayManager(MongoManager[OneWay]):
     def _make_target_url(cls, target: str) -> TargetUrl:
         url = urlparse(target)
 
-        query = dict([q.split("=") for q in url.query.split("&")])
+        query = dict([q.split("=") for q in url.query.split("&")]) if url.query else {}
 
         return TargetUrl(is_secured=True, domain=url.netloc, path=url.path, params=query)
 
