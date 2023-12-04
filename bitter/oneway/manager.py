@@ -58,7 +58,6 @@ class OneWayManager(MongoManager[OneWay]):
     @classmethod
     def create(
         cls,
-        name: str,
         target: str,
         is_temporary: bool,
         lifetime: WayLifetime,
@@ -78,7 +77,7 @@ class OneWayManager(MongoManager[OneWay]):
         cls._logger.debug(f"Unique alias generated after {i} tries")
 
         return cls._create(
-            name=name, alias=alias, target=target_url, is_temporary=is_temporary, lifetime=lifetime, user_uid=user_uid
+            alias=alias, target=target_url, is_temporary=is_temporary, lifetime=lifetime, user_uid=user_uid
         )
 
     @classmethod

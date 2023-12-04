@@ -7,7 +7,6 @@ from pydantic import BaseModel
 class CreateOneWay(BaseModel):
     """CreateOneWay validate model"""
 
-    name: str
     target: str
     is_temporary: bool
     lifetime: WayLifetime

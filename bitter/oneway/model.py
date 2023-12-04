@@ -32,7 +32,6 @@ class OneWay(MongoModel):
 
     _collection_name = "oneways"
 
-    name: str
     target: TargetUrl
     alias: str
     is_temporary: bool

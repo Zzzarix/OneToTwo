@@ -21,7 +21,6 @@ def create_oneway(schema: CreateOneWay):
     """Create oneway"""
 
     way = OneWayManager.create(
-        name=schema.name,
         target=schema.target,
         is_temporary=schema.is_temporary,
         lifetime=schema.lifetime,
