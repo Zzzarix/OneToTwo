@@ -37,7 +37,7 @@ def update_oneway(schema: UpdateOneWay):
 
     OneWayManager.update(schema.uid, schema.update)
 
-    return Response()
+    return Response(content={})
 
 
 @router.post("/delete", response_description="Delete oneway")

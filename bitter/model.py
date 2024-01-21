@@ -23,7 +23,7 @@ class MongoModel(_Model, ABC):
 
     _collection_name: str
 
-    uid: str = Field(alias="_id")
+    uid: str = Field(validation_alias="_id")
     created_at: datetime
 
     def to_dict(self) -> dict:
