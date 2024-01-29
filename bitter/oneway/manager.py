@@ -69,7 +69,7 @@ class OneWayManager(MongoManager[OneWay]):
         alias = make_alias(length=5, only_numbers=only_numbers)
 
         i = 1
-
+        
         while cls.get(alias=alias):
             alias = make_alias(length=5, only_numbers=only_numbers)
             i += 1

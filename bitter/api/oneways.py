@@ -1,8 +1,9 @@
+from http.client import NOT_FOUND
 from bitter.api.validation.oneway import CreateOneWay, DeleteOneWay, UpdateOneWay
 from bitter.oneway.manager import OneWayManager
 from bitter.oneway.model import OneWay
 from fastapi import APIRouter, Request, Response
-from fastapi.responses import RedirectResponse
+import starlette.status as status
 
 router = APIRouter(prefix="/oneways", tags=["oneways"])
 
@@ -13,7 +14,7 @@ def get_oneway(uid: str):
 
     way = OneWayManager.get(uid=uid)
 
-    return way if way else Response(status_code=404)
+    return way if way else Response(status_code=status.HTTP_404_NOT_FOUND)
 
 
 @router.post("/create", response_model=OneWay, response_description="Create oneway")
@@ -37,7 +38,7 @@ def update_oneway(schema: UpdateOneWay):
 
     OneWayManager.update(schema.uid, schema.update)
 
-    return Response(content={})
+    return Response(status_code=status.HTTP_200_OK)
 
 
 @router.post("/delete", response_description="Delete oneway")
@@ -46,7 +47,7 @@ def delete_oneway(schema: DeleteOneWay):
 
     OneWayManager.delete(schema.uid)
 
-    return Response()
+    return Response(status_code=status.HTTP_200_OK)
 
 
 @router.get("/{alias}", response_description="Get redirect link by alias")
@@ -55,4 +56,4 @@ def redirect(alias: str, request: Request):
 
     link = OneWayManager.redirect(alias, ip=request.client.host)
 
-    return RedirectResponse(link) if link else Response(status_code=404)
+    return {"redirect": link} if link else Response(status_code=status.HTTP_404_NOT_FOUND)

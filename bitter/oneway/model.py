@@ -8,10 +8,10 @@ from bitter.model import MongoModel, ObjectModel
 # %% Enums
 class WayLifetime(int, Enum):
     Permanent = 0
-    Day = 1
-    ThreeDays = 3
-    Week = 7
-    Month = 30
+    Day = 24
+    ThreeDays = 72
+    Week = 168
+    # Month = 30
 
 
 # %% Models

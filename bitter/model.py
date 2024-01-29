@@ -28,7 +28,12 @@ class MongoModel(_Model, ABC):
 
     def to_dict(self) -> dict:
         """Return dict representation of model"""
-        return self.model_dump(mode="json", by_alias=True)
+        return self.model_dump(
+            mode="json",
+            include={"_id": self.uid},
+            exclude=("uid",),
+            by_alias=True
+        )
 
 
 class ObjectModel(_Model, ABC):
