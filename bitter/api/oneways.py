@@ -38,7 +38,7 @@ def update_oneway(schema: UpdateOneWay):
 
     OneWayManager.update(schema.uid, schema.update)
 
-    return Response(status_code=status.HTTP_200_OK)
+    return {}
 
 
 @router.post("/delete", response_description="Delete oneway")
@@ -47,7 +47,7 @@ def delete_oneway(schema: DeleteOneWay):
 
     OneWayManager.delete(schema.uid)
 
-    return Response(status_code=status.HTTP_200_OK)
+    return {}
 
 
 @router.get("/{alias}", response_description="Get redirect link by alias")
