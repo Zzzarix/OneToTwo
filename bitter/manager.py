@@ -46,7 +46,7 @@ class MongoManager(Generic[T], ABC):
 
         model = cls._model(**kwargs)
 
-        cls._collection.insert_one(model.to_dict())
+        cls._collection.insert_one(model.to_mongo())
 
         cls._logger.info(f'Created {cls._model.__name__} model with uid "{model.uid}"')
 
