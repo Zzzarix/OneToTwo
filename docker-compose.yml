@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
 
-    # ports:
-    #   - "23001:23001"
+    ports:
+      - "23000:23000"
 
   
   # mongodb:
@@ -18,11 +18,11 @@ services:
   #     MONGO_INITDB_ROOT_USERNAME: root
   #     MONGO_INITDB_ROOT_PASSWORD: zfwaK8RxbJ4gZvP
 
-  nginx-server:
-    container_name: "nginx-server"
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
+  # nginx-server:
+  #   container_name: "nginx-server"
+  #   build:
+  #     context: ./nginx
+  #     dockerfile: Dockerfile
 
-    ports:
-      - "23000:23000"
+  #   ports:
+  #     - "23000:23000"
