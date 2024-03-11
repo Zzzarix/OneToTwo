@@ -24,7 +24,7 @@ class TargetUrl(ObjectModel):
     params: Dict[str, str]
 
     def to_str(self) -> str:
-        schema = "https//:" if self.is_secured else "http//:"
+        schema = "https://" if self.is_secured else "http://"
         params = "&".join([k + "=" + v for k, v in self.params.items()])
         query = ("?" + params) if params else ""
         return schema + self.domain + self.path + query
